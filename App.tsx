@@ -1,20 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { onlineManager, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { StatusBar } from "expo-status-bar";
+import { Text, View } from "react-native";
+import NetInfo from "@react-native-community/netinfo";
+import BottomTabNavigator from "./src/navigation/TabNavigator";
+import { ThemeProvider } from "styled-components/native";
+import theme from "./src/theme";
+
+const queryClient = new QueryClient();
+
+onlineManager.setEventListener((setOnline) => {
+  return NetInfo.addEventListener((state) => {
+    setOnline(!!state.isConnected);
+  });
+});
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <QueryClientProvider client={queryClient}>
+      <BottomTabNavigator />
+    </QueryClientProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
