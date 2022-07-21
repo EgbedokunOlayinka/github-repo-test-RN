@@ -1,8 +1,8 @@
 import { NavigationProp } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
-import { ActivityIndicator } from "react-native";
+import React, { useState } from "react";
+import { ActivityIndicator, RefreshControl } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import AppText from "../../components/AppText";
 import { AppLoaderView } from "../../components/styles/ProfileStyles";
@@ -16,7 +16,7 @@ import {
   RepoSubText,
 } from "../../components/styles/RepoStyles";
 import kFormatter from "../../helpers/kFormatter";
-import { BiggerDotIcon, DotIcon, StarIcon } from "../../icons";
+import { BiggerDotIcon, StarIcon } from "../../icons";
 import theme from "../../theme";
 import { IUserRepoRes } from "../../types";
 import { HomeStackParamList } from "../../types/stack";
@@ -32,7 +32,9 @@ const fetchRepos = async (): Promise<IUserRepoRes[]> =>
     .catch((err) => console.log(err));
 
 const ReposScreen: React.FC<Props> = ({ navigation }) => {
-  const { data, isLoading } = useQuery(["repos"], fetchRepos);
+  const { data, isLoading, refetch } = useQuery(["repos"], fetchRepos);
+
+  const [refreshing, setRefreshing] = useState(false);
 
   return isLoading ? (
     <AppLoaderView>
@@ -40,6 +42,7 @@ const ReposScreen: React.FC<Props> = ({ navigation }) => {
     </AppLoaderView>
   ) : data ? (
     <RepoPageContainer>
+      {refreshing ? <ActivityIndicator /> : null}
       <FlatList
         data={data}
         keyExtractor={(item: IUserRepoRes) => (item as IUserRepoRes).id}
@@ -68,6 +71,7 @@ const ReposScreen: React.FC<Props> = ({ navigation }) => {
             </RepoDetail>
           </RepoContainer>
         )}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refetch} />}
       />
     </RepoPageContainer>
   ) : (

@@ -1,8 +1,8 @@
 import { NavigationProp } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
-import { ActivityIndicator, FlatList } from "react-native";
+import React, { useState } from "react";
+import { ActivityIndicator, FlatList, RefreshControl } from "react-native";
 import AppText from "../../components/AppText";
 import {
   PinnedFlexText,
@@ -37,7 +37,9 @@ const fetchStarredRepos = async (): Promise<IUserRepoRes[]> =>
     .catch((err) => console.log(err));
 
 const StarredScreen: React.FC<Props> = () => {
-  const { data, isLoading } = useQuery(["starred"], fetchStarredRepos);
+  const { data, isLoading, refetch } = useQuery(["starred"], fetchStarredRepos);
+
+  const [refreshing, setRefreshing] = useState(false);
 
   return isLoading ? (
     <AppLoaderView>
@@ -45,6 +47,7 @@ const StarredScreen: React.FC<Props> = () => {
     </AppLoaderView>
   ) : data ? (
     <RepoPageContainer>
+      {refreshing ? <ActivityIndicator /> : null}
       <FlatList
         data={data}
         keyExtractor={(item: IUserRepoRes) => (item as IUserRepoRes).id}
@@ -77,6 +80,7 @@ const StarredScreen: React.FC<Props> = () => {
             </RepoDetail>
           </RepoContainer>
         )}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refetch} />}
       />
     </RepoPageContainer>
   ) : (

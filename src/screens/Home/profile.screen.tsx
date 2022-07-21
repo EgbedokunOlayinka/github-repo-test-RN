@@ -1,21 +1,12 @@
 import { NavigationProp } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useCallback, useMemo } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  ListRenderItem,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import React, { useCallback, useMemo, useState } from "react";
+import { ActivityIndicator, FlatList, ScrollView } from "react-native";
 import AppText from "../../components/AppText";
 import PinnedRepo from "../../components/PinnedRepo";
 import {
   PageContainer,
-  TopBar,
-  TopBarLeft,
   UserImg,
   UserImgSub,
   UserInfo,
@@ -57,9 +48,6 @@ import {
   StarOutlineIcon,
   TwitterIcon,
 } from "../../icons";
-import BackIcon from "../../icons/BackIcon";
-import OptionsIcon from "../../icons/OptionsIcon";
-import ShareIcon from "../../icons/ShareIcon";
 import theme from "../../theme";
 import { IUserProfileRes, IUserRepoRes } from "../../types";
 import { HomeStackParamList } from "../../types/stack";
