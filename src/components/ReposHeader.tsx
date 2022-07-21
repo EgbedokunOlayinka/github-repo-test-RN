@@ -1,8 +1,7 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import React, { useCallback } from "react";
+import React from "react";
 import { TouchableOpacity } from "react-native";
-import { OptionsIcon, ShareIcon } from "../icons";
-import BackIcon from "../icons/BackIcon";
+import { BackIcon } from "../icons";
 import theme from "../theme";
 import { HomeStackParamList } from "../types/stack";
 import AppText from "./AppText";

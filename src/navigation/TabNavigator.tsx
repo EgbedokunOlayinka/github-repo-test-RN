@@ -1,10 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
-import ExploreIcon from "../icons/ExploreIcon";
-import HomeIcon from "../icons/HomeIcon";
-import NotificationIcon from "../icons/NotificationIcon";
-import ProfileIcon from "../icons/ProfileIcon";
+import { ExploreIcon, HomeIcon, NotificationIcon, ProfileIcon } from "../icons";
 import HomeStack from "../screens/Home";
 import theme from "../theme";
 

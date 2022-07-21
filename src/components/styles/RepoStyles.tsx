@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components/native";
-import { IRepoItem } from "../../screens/Home/profile.screen";
 import theme from "../../theme";
 import AppText from "../AppText";
 

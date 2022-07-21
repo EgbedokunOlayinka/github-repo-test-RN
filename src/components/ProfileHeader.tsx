@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import { OptionsIcon, ShareIcon } from "../icons";
-import BackIcon from "../icons/BackIcon";
+import { BackIcon } from "../icons";
 import theme from "../theme";
 import { TopBar, TopBarLeft } from "./styles/ProfileStyles";
 

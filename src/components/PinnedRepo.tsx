@@ -2,7 +2,6 @@ import React from "react";
 import { BiggerDotIcon, StarIcon } from "../icons";
 import theme from "../theme";
 import {
-  PinnedBottomFlex,
   PinnedContainer,
   PinnedFlexText,
   PinnedText,
